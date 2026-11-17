@@ -16,7 +16,7 @@
 html, body { margin: 0; height: 100%; background: #121011; color: #a8a09e; font: 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
 body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; text-align: center; padding: 24px; box-sizing: border-box; }
 /* The WMR shield: two doors (red | blue-yellow) and the W, each its own layer so the doors can swing open in 3D */
-.stage { position: relative; width: min(74vw, 360px); aspect-ratio: 228 / 248; perspective: 1100px; perspective-origin: 50% 45%; opacity: 0; }
+.stage { position: relative; width: min(74vw, 360px); aspect-ratio: 228 / 248; perspective: 700px; perspective-origin: 50% 45%; opacity: 0; }
 .stage svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; backface-visibility: visible; will-change: transform; }
 #doorL { transform-origin: 2.4% 50%; }
 #doorR { transform-origin: 97.6% 50%; }
@@ -37,7 +37,7 @@ body { display: flex; flex-direction: column; align-items: center; justify-conte
 <script>
 /* WMR FIS Men: this page only loads the app from the WMR Apps Script server and shows it here.
    The app, the data and the logins all live on that server; nothing else is stored in this repository.
-   While it loads: the shield's two sides open like doors and the W flies off into the distance (Thomas, 2026-11-17). */
+   While it loads: the shield's two sides open inward like doors and the W flies off into the distance (Thomas, 2026-11-17). */
 (function () {
   var API = 'https://script.google.com/macros/s/AKfycbxUyS4z_Q2362NvduPf-RM2RfoyS0f8AtL_WJxWv69Dj7ISU9EX20sceVLxL-raGEXT/exec';
   var $ = function (id) { return document.getElementById(id); };
@@ -49,16 +49,16 @@ body { display: flex; flex-direction: column; align-items: center; justify-conte
   var EASE_DOOR = 'cubic-bezier(.62,0,.28,1)';
   function openUp(delay) {
     return Promise.all([
-      anim(L, [{ transform: 'rotateY(0deg)', filter: 'brightness(1)' }, { transform: 'rotateY(-108deg)', filter: 'brightness(.45)' }], { duration: 900, delay: delay, easing: EASE_DOOR }),
-      anim(R, [{ transform: 'rotateY(0deg)', filter: 'brightness(1)' }, { transform: 'rotateY(108deg)', filter: 'brightness(.45)' }], { duration: 900, delay: delay, easing: EASE_DOOR }),
+      anim(L, [{ transform: 'rotateY(0deg)', filter: 'brightness(1)' }, { transform: 'rotateY(78deg)', filter: 'brightness(.55)' }], { duration: 900, delay: delay, easing: EASE_DOOR }),
+      anim(R, [{ transform: 'rotateY(0deg)', filter: 'brightness(1)' }, { transform: 'rotateY(-78deg)', filter: 'brightness(.55)' }], { duration: 900, delay: delay, easing: EASE_DOOR }),
       anim(G, [{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'scale(1)', offset: .45 }, { opacity: 0, transform: 'scale(1.25)' }], { duration: 1500, delay: delay + 150, easing: 'ease-out' }),
       anim(W, [{ transform: 'scale(1)', opacity: 1 }, { transform: 'scale(1.06)', opacity: 1, offset: .12 }, { transform: 'scale(.015)', opacity: 0 }], { duration: 1250, delay: delay + 280, easing: 'cubic-bezier(.5,0,.8,.25)' })
     ]);
   }
   function closeBack() {
     return Promise.all([
-      anim(L, [{ transform: 'rotateY(-108deg)', filter: 'brightness(.45)' }, { transform: 'rotateY(0deg)', filter: 'brightness(1)' }], { duration: 600, easing: EASE_DOOR }),
-      anim(R, [{ transform: 'rotateY(108deg)', filter: 'brightness(.45)' }, { transform: 'rotateY(0deg)', filter: 'brightness(1)' }], { duration: 600, easing: EASE_DOOR }),
+      anim(L, [{ transform: 'rotateY(78deg)', filter: 'brightness(.55)' }, { transform: 'rotateY(0deg)', filter: 'brightness(1)' }], { duration: 600, easing: EASE_DOOR }),
+      anim(R, [{ transform: 'rotateY(-78deg)', filter: 'brightness(.55)' }, { transform: 'rotateY(0deg)', filter: 'brightness(1)' }], { duration: 600, easing: EASE_DOOR }),
       anim(W, [{ transform: 'scale(.55)', opacity: 0 }, { transform: 'scale(1)', opacity: 1 }], { duration: 500, delay: 250, easing: 'ease-out' })
     ]);
   }
